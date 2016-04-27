@@ -1,0 +1,44 @@
+{
+  "name": "jrunning-youtube",
+  "version": "1.0.0",
+  "description": "YouTube API client",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha -w test/.setup.js test/*.spec.js",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jrunning/jrunning-youtube.git"
+  },
+  "keywords": [],
+  "author": "Jordan Running <jr@jordanrunning.com> (https://github.com/jrunning)",
+  "license": "MIT",
+  "homepage": "https://github.com/jrunning/jrunning-youtube",
+  "devDependencies": {
+    "babel-core": "^6.0.20",
+    "babel-eslint": "^6.0.4",
+    "babel-loader": "^6.0.1",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "babel-register": "^6.7.2",
+    "chai": "^3.5.0",
+    "enzyme": "^2.2.0",
+    "eslint": "^2.8.0",
+    "eslint-plugin-react": "^5.0.1",
+    "jsdom": "^8.4.0",
+    "mocha": "^2.4.5",
+    "react-addons-test-utils": "^15.0.1",
+    "react-hot-loader": "^1.3.0",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "googleapis": "^5.2.1",
+    "react": "^15.0.1",
+    "react-dom": "^15.0.1"
+  }
+}
