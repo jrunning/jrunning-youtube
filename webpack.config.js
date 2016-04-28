@@ -15,7 +15,8 @@ module.exports = {
     publicPath: '/static/'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.EnvironmentPlugin(['GOOGLE_API_KEY'])
   ],
   module: {
     loaders: [{
