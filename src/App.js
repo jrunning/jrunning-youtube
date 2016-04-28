@@ -1,9 +1,7 @@
-import React, { Component } from 'react';
-import SearchFormContainer from 'SearchFormContainer';
+import React from 'react';
+import SearchContainer from './SearchContainer';
 
-export default class App extends Component {
-  render() {
-    const onSearch = (...args) => console.log(...args);
-    return <SearchFormContainer onSearch={onSearch}/>;
-  }
+export default function App() {
+  const onSearch = (...args) => console.log(...args);
+  return <SearchContainer onSearch={onSearch} />;
 }
