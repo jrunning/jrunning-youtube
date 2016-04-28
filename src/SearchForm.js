@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default function SearchForm({ value, onChange, onSearch }) {
+export default function SearchForm({ apiReady, onChange, onSearch, value }) {
   return (
     <form onSubmit={onSearch}>
       <input
@@ -9,12 +9,14 @@ export default function SearchForm({ value, onChange, onSearch }) {
         value={value || ''}
         onChange={onChange}
       />
-      <input type="submit" value="Search" />
+      {/* TODO Style disabled submit button */}
+      <input type="submit" value="Search" disabled={!apiReady} />
     </form>
   );
 }
 
 SearchForm.propTypes = {
+  apiReady: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   value: PropTypes.string,

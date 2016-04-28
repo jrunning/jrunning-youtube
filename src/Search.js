@@ -2,16 +2,17 @@ import React, { PropTypes } from 'react';
 import SearchFormContainer from './SearchFormContainer';
 import SearchResults from './SearchResults';
 
-export default function Search({ results, onSearch }) {
+export default function Search({ apiReady, onSearch, results }) {
   return (
     <div>
-      <SearchFormContainer onSearch={onSearch} />
+      <SearchFormContainer apiReady={apiReady} onSearch={onSearch} />
       <SearchResults results={results || []} />
     </div>
   );
 }
 
 Search.propTypes = {
-  results: PropTypes.array,
+  apiReady: PropTypes.bool.isRequired,
   onSearch: PropTypes.func.isRequired,
+  results: PropTypes.array,
 };

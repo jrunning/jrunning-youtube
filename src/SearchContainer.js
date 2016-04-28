@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import Search from './Search';
+import youtubeLoaded from './lib/youtubeLoaded';
 
 export default class SearchContainer extends Component {
   constructor(props) {
     super(props);
-    this.state = { results: [] };
+    this.state = { results: [], apiReady: false };
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  componentDidMount() {
+    youtubeLoaded(() => this.setState({ apiReady: true }));
+  }
+
   handleSearch(keywords) {
+    if (!this.state.apiReady) { return; }
+
     setTimeout(() => {
       this.handleResultsReceived([
         `${keywords}-0`,
@@ -19,13 +26,13 @@ export default class SearchContainer extends Component {
   }
 
   handleResultsReceived(results) {
-    this.setState({ ...(this.state), results });
+    this.setState({ results });
   }
 
   render() {
     return (
       <Search
-        results={this.state.results}
+        {...this.state}
         onSearch={this.handleSearch}
       />
     );

@@ -3,6 +3,7 @@ import SearchForm from './SearchForm';
 
 export default class SearchFormContainer extends Component {
   static propTypes = {
+    apiReady: PropTypes.bool.isRequired,
     initialValue: PropTypes.string,
     onSearch: PropTypes.func.isRequired,
   }
@@ -15,7 +16,7 @@ export default class SearchFormContainer extends Component {
   }
 
   handleChange(evt) {
-    this.setState({ ...this.state, value: evt.target.value || '' });
+    this.setState({ value: evt.target.value || '' });
   }
 
   handleSearch(evt) {
@@ -26,9 +27,10 @@ export default class SearchFormContainer extends Component {
   render() {
     return (
       <SearchForm
-        value={this.state.value}
+        apiReady={this.props.apiReady}
         onChange={this.handleChange}
         onSearch={this.handleSearch}
+        value={this.state.value}
       />
     );
   }
