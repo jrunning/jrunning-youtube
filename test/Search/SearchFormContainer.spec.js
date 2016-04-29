@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SearchFormContainer from '../src/SearchFormContainer';
-import SearchForm from '../src/SearchForm';
+import SearchFormContainer from '../../src/Search/SearchFormContainer';
+import SearchForm from '../../src/Search/SearchForm';
 
 describe('<SearchFormContainer/>', () => {
   let props;

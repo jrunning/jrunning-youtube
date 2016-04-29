@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchContainer from './SearchContainer';
+import SearchContainer from './Search/SearchContainer';
 
 export default function App() {
   const onSearch = (...args) => console.log(...args);

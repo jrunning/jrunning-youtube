@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search';
-import { apiLoaded, search } from './lib/YouTube';
+import { apiLoaded, search } from '../lib/YouTube';
 
 export default class SearchContainer extends Component {
   constructor(props) {

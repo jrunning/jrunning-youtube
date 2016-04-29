@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import SearchContainer from '../src/SearchContainer';
-import Search from '../src/Search';
+import SearchContainer from '../../src/Search/SearchContainer';
+import Search from '../../src/Search/Search';
 
 describe('<SearchContainer/>', () => {
   it('initially sets `state.results` to an empty array', () => {
