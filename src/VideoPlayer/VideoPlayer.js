@@ -1,8 +1,12 @@
 import React, { PropTypes } from 'react';
 
+const style = {
+  flex: 1,
+};
+
 export default function VideoPlayer({ title, embedHtml }) {
   return (
-    <div>
+    <div style={style}>
       <h4>{title}</h4>
       <div dangerouslySetInnerHTML={embedHtml} />
     </div>

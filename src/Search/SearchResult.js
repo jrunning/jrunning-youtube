@@ -1,5 +1,10 @@
 import React, { PropTypes } from 'react';
 
+const linkStyle = {
+  display: 'block',
+  cursor: 'pointer',
+};
+
 export default function SearchResult({
   data: {
     thumbnails: { default: { url: thumbnailUrl } },
@@ -9,7 +14,7 @@ export default function SearchResult({
 }) {
   return (
     <li>
-      <a onClick={onSelect}>
+      <a onClick={onSelect} style={linkStyle}>
         <h4>{title}</h4>
         <img src={thumbnailUrl} />
       </a>

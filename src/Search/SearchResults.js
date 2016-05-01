@@ -9,7 +9,7 @@ export default function SearchResults({ onSelect, results }) {
   }
 
   return (
-    <ul>
+    <ol>
       {results.map((result, idx) => (
         <SearchResult
           key={idx}
@@ -17,7 +17,7 @@ export default function SearchResults({ onSelect, results }) {
           data={result}
         />
       ))}
-    </ul>
+    </ol>
   );
 }
 
