@@ -1,28 +1,41 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Search from './Search';
 import { apiLoaded, search } from '../lib/YouTube';
 
 export default class SearchContainer extends Component {
+  static propTypes = {
+    onSelect: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props);
     this.state = { results: [], apiReady: false };
-    this.handleSearch = this.handleSearch.bind(this);
     this.handleResultsReceived = this.handleResultsReceived.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleVideoSelected = this.handleVideoSelected.bind(this);
   }
 
   componentDidMount() {
     apiLoaded(() => this.setState({ apiReady: true }));
   }
 
+  handleResultsReceived(results) {
+    this.setState({ results });
+  }
+
   handleSearch(keywords) {
     if (!this.state.apiReady) { return; }
-    console.log(`Searching for ${keywords}`);
     search(keywords, this.handleResultsReceived);
   }
 
-  handleResultsReceived(results) {
-    console.log('Received results', results);
-    this.setState({ results });
+  handleVideoSelected(searchResultIdx) {
+    const selectedResult = this.state.results[searchResultIdx];
+
+    if (!selectedResult) {
+      throw new Error('Invalid selected video index!');
+    }
+
+    this.props.onSelect(selectedResult);
   }
 
   render() {
@@ -30,6 +43,7 @@ export default class SearchContainer extends Component {
       <Search
         {...this.state}
         onSearch={this.handleSearch}
+        onSelect={this.handleVideoSelected}
       />
     );
   }

@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import SearchContainer from './Search/SearchContainer';
+import VideoPlayerContainer from './VideoPlayer/VideoPlayerContainer';
 
-export default function App() {
-  const onSearch = (...args) => console.log(...args);
-  return <SearchContainer onSearch={onSearch} />;
+export default function App({ onSelectVideo, selectedVideo }) {
+  return (
+    <div>
+      <SearchContainer onSelect={onSelectVideo} />
+      <VideoPlayerContainer video={selectedVideo} />
+    </div>
+  );
 }
+
+App.propTypes = {
+  onSelectVideo: PropTypes.func.isRequired
+};

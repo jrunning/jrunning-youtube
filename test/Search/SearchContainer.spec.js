@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { transformedItems } from '../data/search';
 
 import SearchContainer from '../../src/Search/SearchContainer';
 import Search from '../../src/Search/Search';
@@ -13,10 +14,10 @@ describe('<SearchContainer/>', () => {
   it('renders a Search component and passes `state.results` as its ' +
      '`results` prop', () => {
     const wrapper = shallow(<SearchContainer/>);
-    wrapper.setState({ results: [ 'foo' ] });
+    wrapper.setState({ results: transformedItems });
 
     const searchComponent = wrapper.find(Search);
-    expect(searchComponent.prop('results')).to.eql(['foo']);
+    expect(searchComponent.prop('results')).to.eql(transformedItems);
   });
 });
 
