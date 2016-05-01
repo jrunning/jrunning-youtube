@@ -41,9 +41,10 @@ export default class VideoPlayerContainer extends Component {
     );
   }
 
-  handleResponseReceived({ player: { embedHtml } }) {
+  handleResponseReceived({ player: { embedHtml }, statistics }) {
     this.setState({
       embedHtml: { __html: embedHtml },
+      statistics,
       videoIsLoaded: true,
     });
   }
@@ -55,8 +56,9 @@ export default class VideoPlayerContainer extends Component {
 
     return (
       <VideoPlayer
-        title={this.props.video.title}
         embedHtml={this.state.embedHtml}
+        statistics={this.state.statistics}
+        title={this.props.video.title}
       />
     );
   }

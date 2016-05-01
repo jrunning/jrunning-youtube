@@ -100,7 +100,7 @@ describe('YouTube', () => {
       YouTube.search('foo', (results) => {
         expect(results).to.have.length(searchResponseItems.length);
         expect(results[0]).to.have
-          .any.keys('kind', 'videoId', 'title', 'publishedAt');
+          .any.keys('kind', 'videoId', 'title', 'publishedAt', 'channelTitle');
         expect(results[0].publishedAt).to.be.a('date');
         done();
       });
@@ -116,7 +116,7 @@ describe('YouTube', () => {
     it('calls `gapi.client.youtube.videos.list` with the ' +
        'given video id`', (done) => {
       const id = getVideoResponseItem.id;
-      const expectedParams = sinon.match({ id, part: 'player' });
+      const expectedParams = sinon.match({ id, part: 'player,statistics' });
 
       YouTube.getVideo(id, () => {
         expect(window.gapi.client.youtube.videos.list)
@@ -127,7 +127,7 @@ describe('YouTube', () => {
 
     it('returns the expected result', (done) => {
       YouTube.getVideo('foo-bar-baz', (result) => {
-        expect(result).to.have.any.keys('player');
+        expect(result).to.have.any.keys('player', 'statistics');
         expect(result.player.embedHtml).to.be.a('string');
         done();
       });

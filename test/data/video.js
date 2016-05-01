@@ -1,10 +1,19 @@
+export const statistics = {
+  viewCount: '39770',
+  likeCount: '167',
+  dislikeCount: '9',
+  favoriteCount: '0',
+  commentCount: '8'
+};
+
 export const item = {
   kind: 'youtube#video',
   etag: '\'kiOs9cZLH2FUp6r6KJ8eyq_LIOk/OQu6Yo-zGc-wtL57iMUYhyvTQ0c\'',
   id: '9NoBh0hXaYg',
   player: {
     embedHtml: '<iframe width="640" height="360" src="//www.youtube.com/embed/9NoBh0hXaYg" frameborder="0" allowfullscreen></iframe>'
-  }
+  },
+  statistics
 };
 
 const response = {
