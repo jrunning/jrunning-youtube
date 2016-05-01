@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
 
-export default function VideoPlayer({ data }) {
-  if (!data) {
-    return <div>No video selected.</div>;
-  }
-
+export default function VideoPlayer({ title, embedHtml }) {
   return (
-    <div>Data: {JSON.stringify(data)}</div>
+    <div>
+      <h4>{title}</h4>
+      <div dangerouslySetInnerHTML={embedHtml} />
+    </div>
   );
 }
 
 VideoPlayer.propTypes = {
-  data: PropTypes.object
+  title: PropTypes.string.isRequired,
+  embedHtml: PropTypes.shape({
+    __html: PropTypes.string.isRequired,
+  }).isRequired,
 };

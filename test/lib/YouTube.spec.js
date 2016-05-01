@@ -115,10 +115,10 @@ describe('YouTube', () => {
 
     it('calls `gapi.client.youtube.videos.list` with the ' +
        'given video id`', (done) => {
-      const q = getVideoResponseItem.id;
-      const expectedParams = sinon.match({ q, part: 'player' });
+      const id = getVideoResponseItem.id;
+      const expectedParams = sinon.match({ id, part: 'player' });
 
-      YouTube.getVideo(q, () => {
+      YouTube.getVideo(id, () => {
         expect(window.gapi.client.youtube.videos.list)
           .to.have.been.calledWithMatch(expectedParams);
         done();

@@ -92,17 +92,16 @@ export function search(q, callback) {
 const GET_VIDEO_DEFAULT_PARAMS = { part: 'player' };
 
 function handleGetVideosResponse(callback) {
-  return function([ { result }, ]) {
-    const { items: [item,] } = result;
+  return function({ result: { items: [item,] } }) {
     callback(item);
   }
 }
 
 // Retrieves the video player embed code for the given video id and
 // passes it to the given callback.
-export function getVideo(q, callback) {
+export function getVideo(id, callback) {
   ensureApiReady();
-  youtube.videos.list({ ...GET_VIDEO_DEFAULT_PARAMS, q })
+  youtube.videos.list({ ...GET_VIDEO_DEFAULT_PARAMS, id })
     .then(handleGetVideosResponse(callback), handleError);
 }
 
