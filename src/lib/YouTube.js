@@ -6,12 +6,6 @@
 import { youtube as config } from '../../config';
 
 const LOAD_POLL_INTERVAL = 50; // ms
-const MAX_RESULTS = 20;
-const DEFAULT_PARAMS = {
-  maxResults: MAX_RESULTS,
-  part: 'snippet',
-  type: 'video',
-};
 
 let apiReady = false;
 let youtube = null;
@@ -46,8 +40,21 @@ export function apiLoaded(callback) {
   });
 }
 
-/* Transform result object to simplified, flat object with the following
- * properties:
+function ensureApiReady() {
+  if (apiReady) { return; }
+  throw new Error('YouTube API not yet loaded!');
+}
+
+// YouTube.search
+const SEARCH_MAX_RESULTS = 20;
+const SEARCH_DEFAULT_PARAMS = {
+  maxResults: SEARCH_MAX_RESULTS,
+  part: 'snippet',
+  type: 'video',
+};
+
+/* Transform search result object to simplified, flat object with the
+ * following properties:
  * - kind (String)
  * - videoId (String)
  * - title (String)
@@ -57,14 +64,14 @@ export function apiLoaded(callback) {
  * - publishedAt (Date)
  * - thumbnails (Object)
  */
-function transformItem({ id: { kind, videoId }, snippet }) {
+function transformSearchResultItem({ id: { kind, videoId }, snippet }) {
   const publishedAt = new Date(snippet.publishedAt);
   return { kind, videoId, ...snippet, publishedAt };
 }
 
-function handleResponse(callback) {
+function handleSearchResponse(callback) {
   return function ({ result: { items } }) {
-    callback(items.map(transformItem));
+    callback(items.map(transformSearchResultItem));
   };
 }
 
@@ -73,12 +80,32 @@ function handleError({ result }) {
   throw new Error(`YouTube API error: ${result.error.message}`);
 }
 
+// Searches YouTube for the given query and invokes the callback with
+// the results (at most SEARCH_MAX_RESULTS).
 export function search(q, callback) {
-  if (!apiReady) { throw new Error('YouTube API not yet loaded!'); }
-  youtube.search.list({ ...DEFAULT_PARAMS, q })
-    .then(handleResponse(callback));
+  ensureApiReady();
+  youtube.search.list({ ...SEARCH_DEFAULT_PARAMS, q })
+    .then(handleSearchResponse(callback), handleError);
 }
 
-const YouTube = { apiLoaded, search };
+// YouTube.getVideo
+const GET_VIDEO_DEFAULT_PARAMS = { part: 'player' };
+
+function handleGetVideosResponse(callback) {
+  return function([ { result }, ]) {
+    const { items: [item,] } = result;
+    callback(item);
+  }
+}
+
+// Retrieves the video player embed code for the given video id and
+// passes it to the given callback.
+export function getVideo(q, callback) {
+  ensureApiReady();
+  youtube.videos.list({ ...GET_VIDEO_DEFAULT_PARAMS, q })
+    .then(handleGetVideosResponse(callback), handleError);
+}
+
+const YouTube = { apiLoaded, search, getVideo };
 
 export default YouTube;

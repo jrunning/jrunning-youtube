@@ -1,5 +1,6 @@
 import gapi from '../support/mockGapi';
-import response, { rawItems } from '../data/search';
+import searchResponse, { rawItems as searchResponseItems } from '../data/search';
+import getVideoResponse, { item as getVideoResponseItem } from '../data/video';
 
 describe('YouTube', () => {
   let YouTube;
@@ -79,7 +80,7 @@ describe('YouTube', () => {
 
   describe('.search', () => {
     beforeEach((done) => {
-      gapi.setResponse(response);
+      gapi.setResponse(searchResponse);
       YouTube.apiLoaded(() => { done() });
     });
 
@@ -97,10 +98,37 @@ describe('YouTube', () => {
 
     it('returns the expected results', (done) => {
       YouTube.search('foo', (results) => {
-        expect(results).to.have.length(rawItems.length);
+        expect(results).to.have.length(searchResponseItems.length);
         expect(results[0]).to.have
           .any.keys('kind', 'videoId', 'title', 'publishedAt');
         expect(results[0].publishedAt).to.be.a('date');
+        done();
+      });
+    });
+  });
+
+  describe('.getVideo', () => {
+    beforeEach((done) => {
+      gapi.setResponse(getVideoResponse);
+      YouTube.apiLoaded(() => { done() });
+    });
+
+    it('calls `gapi.client.youtube.videos.list` with the ' +
+       'given video id`', (done) => {
+      const q = getVideoResponseItem.id;
+      const expectedParams = sinon.match({ q, part: 'player' });
+
+      YouTube.getVideo(q, () => {
+        expect(window.gapi.client.youtube.videos.list)
+          .to.have.been.calledWithMatch(expectedParams);
+        done();
+      });
+    });
+
+    it('returns the expected result', (done) => {
+      YouTube.getVideo('foo-bar-baz', (result) => {
+        expect(result).to.have.any.keys('player');
+        expect(result.player.embedHtml).to.be.a('string');
         done();
       });
     });

@@ -6,10 +6,16 @@
 let gapi;
 let response;
 
-function mockYoutube() {
+function mockReturnsPromise() {
   const then = (callback) => setTimeout(() => callback(response), 0);
-  const list = sinon.spy((params) => ({ then }));
-  return { search: { list } };
+  return sinon.spy((params) => ({ then }));
+}
+
+function mockYoutube() {
+  return {
+    search: { list: mockReturnsPromise() },
+    videos: { list: mockReturnsPromise() }
+  };
 }
 
 function mockLoad() {
