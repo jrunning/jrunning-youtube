@@ -10,6 +10,7 @@ const MAX_RESULTS = 20;
 const DEFAULT_PARAMS = {
   maxResults: MAX_RESULTS,
   part: 'snippet',
+  type: 'video',
 };
 
 let apiReady = false;
@@ -45,9 +46,25 @@ export function apiLoaded(callback) {
   });
 }
 
+/* Transform result object to simplified, flat object with the following
+ * properties:
+ * - kind (String)
+ * - videoId (String)
+ * - title (String)
+ * - channelId (String)
+ * - channelTitle (String)
+ * - description (String)
+ * - publishedAt (Date)
+ * - thumbnails (Object)
+ */
+function transformItem({ id: { kind, videoId }, snippet }) {
+  const publishedAt = new Date(snippet.publishedAt);
+  return { kind, videoId, ...snippet, publishedAt };
+}
+
 function handleResponse(callback) {
-  return function ({ result }) {
-    callback(result.items);
+  return function ({ result: { items } }) {
+    callback(items.map(transformItem));
   };
 }
 
