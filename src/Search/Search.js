@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import SearchFormContainer from './SearchFormContainer';
-import SearchResults from './SearchResults';
+import VideoList from '../VideoList/VideoList';
 
 const style = {
   flex: 1
@@ -11,7 +11,7 @@ export default function Search({ apiReady, onSelect, onSearch, results }) {
     <div style={style}>
       <h2>Search</h2>
       <SearchFormContainer apiReady={apiReady} onSearch={onSearch} />
-      <SearchResults onSelect={onSelect} results={results || []} />
+      <VideoList onSelect={onSelect} items={results || []} />
     </div>
   );
 }

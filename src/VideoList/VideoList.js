@@ -1,29 +1,29 @@
 import React, { PropTypes } from 'react';
-import SearchResult from './SearchResult'
+import VideoListItem from './VideoListItem'
 
-export default function SearchResults({ onSelect, results }) {
-  if (!results) { return null; }
+export default function VideoList({ onSelect, items }) {
+  if (!items) { return null; }
 
-  if (results.length === 0) {
+  if (items.length === 0) {
     return <div>No results</div>;
   }
 
   return (
     <ol>
-      {results.map((result, idx) => (
-        <SearchResult
+      {items.map((item, idx) => (
+        <VideoListItem
           key={idx}
           onSelect={(...args) => onSelect(idx, ...args)}
-          data={result}
+          data={item}
         />
       ))}
     </ol>
   );
 }
 
-SearchResults.propTypes = {
+VideoList.propTypes = {
   onSelect: PropTypes.func.isRequired,
-  results: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       thumbnails: PropTypes.shape({
         default: PropTypes.shape({

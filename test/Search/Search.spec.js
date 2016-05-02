@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Search from '../../src/Search/Search';
-import SearchResults from '../../src/Search/SearchResults';
+import VideoList from '../../src/VideoList/VideoList';
 import SearchFormContainer from '../../src/Search/SearchFormContainer';
 
 describe('<Search/>', () => {
@@ -17,12 +17,12 @@ describe('<Search/>', () => {
     expect(wrapper.find(SearchFormContainer)).to.have.length(1);
   });
 
-  it('renders a SearchResults component and passes `state.results` as ' +
+  it('renders a VideoList component and passes `state.results` as ' +
      'its `props.results`', () => {
     props = { ...props, results: ['foo', 'bar', 'baz'] };
     const wrapper = shallow(<Search {...props}/>);
-    const searchResults = wrapper.find(SearchResults);
-    expect(searchResults).to.have.length(1);
-    expect(searchResults.prop('results')).to.eql(props.results);
+    const videoList = wrapper.find(VideoList);
+    expect(videoList).to.have.length(1);
+    expect(videoList.prop('items')).to.eql(props.results);
   });
 });

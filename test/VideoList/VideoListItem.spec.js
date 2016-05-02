@@ -2,16 +2,16 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { transformedItem as item } from '../data/search';
 
-import SearchResult from '../../src/Search/SearchResult';
+import VideoListItem from '../../src/VideoList/VideoListItem';
 
-describe('<SearchResult/>', () => {
+describe('<VideoListItem/>', () => {
   let onSelect;
   let wrapper;
 
   beforeEach(() => {
     onSelect = sinon.spy();
     wrapper = shallow(
-      <SearchResult data={item} onSelect={onSelect} />
+      <VideoListItem data={item} onSelect={onSelect} />
     );
   });
 

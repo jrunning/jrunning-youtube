@@ -17,7 +17,7 @@ const infoStyle = { flex: 1, padding: '.5em' };
 const titleStyle = { margin: '0 0 .5em 0' };
 const channelStyle = { fontWeight: 'normal', margin: '0 0 .5em 0' };
 
-export default function SearchResult({
+export default function VideoListItem({
   data: {
     channelTitle,
     thumbnails: { default: { url: thumbnailUrl } },
@@ -38,7 +38,7 @@ export default function SearchResult({
   );
 }
 
-SearchResult.propTypes = {
+VideoListItem.propTypes = {
   onSelect: PropTypes.func.isRequired,
   data: PropTypes.shape({
     channelTitle: PropTypes.string.isRequired,
