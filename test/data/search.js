@@ -100,6 +100,7 @@ export const transformedItem = {
       width: 480, height: 360
     }
   },
+  channelTitle: "foofightersVEVO",
 };
 
 export const transformedItems = [
@@ -124,6 +125,7 @@ export const transformedItems = [
         width: 480, height: 360
       }
     },
+    channelTitle: "Foo Fighters",
   },
   { kind: "youtube#video",
     videoId: "eBG7P-K-r1Y",
@@ -145,6 +147,7 @@ export const transformedItems = [
         width: 480, height: 360
       }
     },
+    channelTitle: "foofightersVEVO",
   }
 ];
 

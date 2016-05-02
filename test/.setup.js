@@ -25,4 +25,22 @@ global.navigator = {
   userAgent: 'node.js'
 };
 
-documentRef = document;
+window.localStorage = window.sessionStorage = {
+  items: {},
+
+  clear: function () {
+    this.items = {};
+  },
+
+  getItem: function (key) {
+    return this.items[key];
+  },
+
+  removeItem: function (key) {
+    delete this.items[key];
+  },
+
+  setItem: function (key, value) {
+    this.items[key] = value;
+  },
+};
