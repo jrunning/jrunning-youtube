@@ -1,21 +1,24 @@
 import React, { PropTypes } from 'react';
 
-const linkStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  margin: '-1em 0 .5em 0',
-  cursor: 'pointer',
-};
+const style = {
+  link: {
+    display: 'flex',
+    flexDirection: 'row',
+    margin: '-1em 0 .5em 0',
+    cursor: 'pointer',
+  },
 
-const thumbnailStyle = {
-  flexBasis: 'auto',
-  width: 120,
-  height: 90,
-};
+  thumbnail: {
+    flexBasis: 'auto',
+    width: 120,
+    height: 90,
+  },
 
-const infoStyle = { flex: 1, padding: '.5em' };
-const titleStyle = { margin: '0 0 .5em 0' };
-const channelStyle = { fontWeight: 'normal', margin: '0 0 .5em 0' };
+  info: { flex: 1, padding: '.5em' },
+  title: { margin: '0 0 .5em 0' },
+  channel: { fontWeight: 'normal', margin: '0 0 .5em 0' },
+  fav: { cursor: 'pointer' },
+}
 
 export default function VideoListItem({
   data: {
@@ -23,23 +26,25 @@ export default function VideoListItem({
     thumbnails: { default: { url: thumbnailUrl } },
     title
   },
+  isFavorite,
   onSelect,
+  onToggleFavorite,
 }) {
   return (
     <li>
-      <a onClick={onSelect} style={linkStyle}>
-        <img src={thumbnailUrl} style={thumbnailStyle} />
-        <div style={infoStyle}>
-          <h4 style={titleStyle}>{title}</h4>
-          <h5 style={channelStyle}>by {channelTitle}</h5>
+      <a onClick={onSelect} style={style.link}>
+        <img src={thumbnailUrl} style={style.thumbnail} />
+        <div style={style.info}>
+          <h4 style={style.title}>{title}</h4>
+          <h5 style={style.channel}>by {channelTitle}</h5>
         </div>
       </a>
+      <a onClick={onToggleFavorite} style={style.fav}>{isFavorite && 'un'}fav</a>
     </li>
   );
 }
 
 VideoListItem.propTypes = {
-  onSelect: PropTypes.func.isRequired,
   data: PropTypes.shape({
     channelTitle: PropTypes.string.isRequired,
     thumbnails: PropTypes.shape({
@@ -49,4 +54,7 @@ VideoListItem.propTypes = {
     }),
     title: PropTypes.string.isRequired,
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onToggleFavorite: PropTypes.func.isRequired,
 };

@@ -1,5 +1,5 @@
 const KEY_PREFIX = 'favorites:';
-const INDEX_KEY = `${KEY_PREFIX}index`;
+export const INDEX_KEY = `${KEY_PREFIX}index`;
 
 function idToKey(id) {
   return `${KEY_PREFIX}${id}`;

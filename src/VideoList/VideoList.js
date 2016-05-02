@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react';
 import VideoListItem from './VideoListItem'
 
-export default function VideoList({ onSelect, items }) {
+export default function VideoList({
+  items,
+  favorites,
+  onSelect,
+  onToggleFavorite,
+}) {
   if (!items) { return null; }
 
   if (items.length === 0) {
@@ -12,9 +17,11 @@ export default function VideoList({ onSelect, items }) {
     <ol>
       {items.map((item, idx) => (
         <VideoListItem
-          key={idx}
-          onSelect={(...args) => onSelect(idx, ...args)}
           data={item}
+          key={idx}
+          isFavorite={!!favorites[item.videoId]}
+          onSelect={() => onSelect(idx)}
+          onToggleFavorite={() => onToggleFavorite(idx)}
         />
       ))}
     </ol>
@@ -22,7 +29,6 @@ export default function VideoList({ onSelect, items }) {
 }
 
 VideoList.propTypes = {
-  onSelect: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(
     PropTypes.shape({
       thumbnails: PropTypes.shape({
@@ -33,4 +39,8 @@ VideoList.propTypes = {
       title: PropTypes.string.isRequired
     }).isRequired
   ),
+  favorites: PropTypes.objectOf(PropTypes.oneOf([true])).isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  onToggleFavorite: PropTypes.func.isRequired,
 };
