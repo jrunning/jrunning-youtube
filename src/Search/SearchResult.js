@@ -1,13 +1,21 @@
 import React, { PropTypes } from 'react';
 
 const linkStyle = {
-  display: 'block',
+  display: 'flex',
+  flexDirection: 'row',
+  margin: '-1em 0 .5em 0',
   cursor: 'pointer',
 };
 
 const thumbnailStyle = {
-  float: 'left'
+  flexBasis: 'auto',
+  width: 120,
+  height: 90,
 };
+
+const infoStyle = { flex: 1, padding: '.5em' };
+const titleStyle = { margin: '0 0 .5em 0' };
+const channelStyle = { fontWeight: 'normal', margin: '0 0 .5em 0' };
 
 export default function SearchResult({
   data: {
@@ -20,13 +28,10 @@ export default function SearchResult({
   return (
     <li>
       <a onClick={onSelect} style={linkStyle}>
-        <h4>{title}</h4>
-        <div className="clearfix">
-          <img src={thumbnailUrl} style={thumbnailStyle} />
-          <dl>
-            <dt>Channel Title</dt>
-            <dd>{channelTitle}</dd>
-          </dl>
+        <img src={thumbnailUrl} style={thumbnailStyle} />
+        <div style={infoStyle}>
+          <h4 style={titleStyle}>{title}</h4>
+          <h5 style={channelStyle}>by {channelTitle}</h5>
         </div>
       </a>
     </li>
