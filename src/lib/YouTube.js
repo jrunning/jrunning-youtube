@@ -47,8 +47,10 @@ function ensureApiReady() {
 
 // YouTube.search
 const SEARCH_MAX_RESULTS = 20;
+const SEARCH_DEFAULT_LOCATION_RADIUS = '5mi';
 const SEARCH_DEFAULT_PARAMS = {
   maxResults: SEARCH_MAX_RESULTS,
+  order: 'relevance',
   part: 'snippet',
   type: 'video',
 };
@@ -82,9 +84,24 @@ function handleError({ result }) {
 
 // Searches YouTube for the given query and invokes the callback with
 // the results (at most SEARCH_MAX_RESULTS).
-export function search(q, callback) {
+export function search(q, ...rest) {
+  let params, callback;
+
   ensureApiReady();
-  youtube.search.list({ ...SEARCH_DEFAULT_PARAMS, q })
+
+  if (typeof rest[0] === 'object') {
+    [ params, callback ] = rest;
+  } else {
+    [ params, callback ] = [ {}, rest[0] ];
+  }
+
+  if (params.location && !params.locationRadius) {
+    params.locationRadius = SEARCH_DEFAULT_LOCATION_RADIUS;
+  }
+
+  params = { ...SEARCH_DEFAULT_PARAMS, q, ...params };
+
+  youtube.search.list(params)
     .then(handleSearchResponse(callback), handleError);
 }
 
