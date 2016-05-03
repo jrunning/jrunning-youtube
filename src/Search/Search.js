@@ -18,7 +18,11 @@ export default function Search({
   return (
     <div style={style}>
       <h2>Search</h2>
-      <SearchFormContainer apiReady={apiReady} onSearch={onSearch} />
+      <SearchFormContainer
+        apiReady={apiReady}
+        initialOrder="relevance"
+        onSearch={onSearch}
+      />
       <VideoList
         favorites={favorites || {}}
         items={results || []}

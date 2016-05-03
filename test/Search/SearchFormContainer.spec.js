@@ -17,13 +17,22 @@ describe('<SearchFormContainer/>', () => {
   });
 
   it('should update `state.value` when the SearchForm component\'s ' +
-     '`props.onChange` is called', () => {
+     '`props.onChangeValue` is called', () => {
     const newValue = 'bar';
-    const wrapper = shallow(<SearchFormContainer {...props}/>);
+    const wrapper = shallow(<SearchFormContainer {...props} />);
     const searchComponent = wrapper.find(SearchForm);
 
-    searchComponent.prop('onChange')({ target: { value: newValue } });
+    searchComponent.prop('onChangeValue')({ target: { value: newValue } });
     expect(wrapper.state('value')).to.equal(newValue);
+  });
+
+  it('should update `state.order` when the SearchForm component\'s ' +
+     '`props.onChangeOrder` is called', () => {
+    const newValue = 'date';
+    const wrapper = shallow(<SearchFormContainer {...props} />);
+    const searchComponent = wrapper.find(SearchForm);
+    searchComponent.prop('onChangeOrder')(newValue);
+    expect(wrapper.state('order')).to.equal(newValue);
   });
 
   it('should call `props.onSearch` with the search keywords when the ' +

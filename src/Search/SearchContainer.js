@@ -26,9 +26,9 @@ export default class SearchContainer extends Component {
     this.setState({ results });
   }
 
-  handleSearch(keywords) {
+  handleSearch(keywords, params={}) {
     if (!this.state.apiReady) { return; }
-    search(keywords, this.handleResultsReceived);
+    search(keywords, params, this.handleResultsReceived);
   }
 
   handleToggleFavorite(itemIdx) {

@@ -29,19 +29,33 @@ describe('<SearchForm/>', () => {
       expect(searchBox.prop('value')).to.equal(props.value);
     });
 
-    it('should call `onChange` when the text box\'s value changes', () => {
-      props = { ...props, onChange: sinon.spy() };
-      const wrapper = shallow(<SearchForm {...props}/>);
+    it('should call `onChangeValue` when the text box\'s value changes', () => {
+      props = { ...props, onChangeValue: sinon.spy() };
+      const wrapper = shallow(<SearchForm {...props} />);
       const searchBox = wrapper.find('input[type="text"]');
 
       searchBox.value = 'bar';
       searchBox.simulate('change');
-      expect(props.onChange).to.have.been.called;
+      expect(props.onChangeValue).to.have.been.called;
+    });
+
+    it('should call `onChangeOrder` when the order radio buttons are clicked', () => {
+      props = { ...props, onChangeOrder: sinon.spy() };
+      const wrapper = shallow(<SearchForm {...props} />);
+
+      wrapper.find('input[type="radio"]').forEach((radio) => {
+        // React fires 'change' events instead of 'click' when radio
+        // buttons are clicked
+        radio.simulate('change');
+      });
+
+      expect(props.onChangeOrder).to.have.callCount(3);
+
     });
 
     it('should call `onSearch` when the submit button is clicked', () => {
       props = { ...props, onSearch: sinon.spy() };
-      const wrapper = shallow(<SearchForm {...props}/>);
+      const wrapper = shallow(<SearchForm {...props} />);
 
       wrapper.find('form').simulate('submit');
       expect(props.onSearch).to.have.been.called;
