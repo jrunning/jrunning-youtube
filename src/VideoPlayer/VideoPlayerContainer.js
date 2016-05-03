@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import VideoPlayer from './VideoPlayer';
 import { apiLoaded, getVideo } from '../lib/YouTube';
 
+const noVideoStyle = { flex: '40%', margin: '1em' };
+
 export default class VideoPlayerContainer extends Component {
   static propTypes = {
     video: PropTypes.shape({
@@ -12,68 +14,59 @@ export default class VideoPlayerContainer extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      apiReady: false,
-      embedHtml: null,
-      videoIsLoaded: false,
-    };
+    this.state = { apiReady: false, statistics: null };
     this.handleResponseReceived = this.handleResponseReceived.bind(this);
   }
 
   componentDidMount() {
     apiLoaded(() => {
       this.setState({ apiReady: true })
-      this.loadVideo();
+      this.loadStatistics();
     });
   }
 
   componentWillReceiveProps(nextProps) {
     const videoId = this.videoId(nextProps);
     if (!this.state.apiReady) { return; }
-    if (videoId === this.props.videoId) { return; }
-    this.loadVideo(videoId);
+    if (videoId === this.videoId()) { return; }
+    this.loadStatistics(videoId);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !(
-      nextProps.videoId === this.props.videoId &&
-        nextState.embedHtml === this.state.embedHtml
+  shouldComponentUpdate(nextProps, { statistics }) {
+    return (
+      this.videoId(nextProps) !== this.videoId() ||
+        statistics !== this.state.statistics
     );
   }
 
-  handleResponseReceived({ player: { embedHtml }, statistics }) {
-    this.setState({
-      embedHtml: { __html: embedHtml },
-      statistics,
-      videoIsLoaded: true,
-    });
+  handleResponseReceived({ statistics }) {
+    this.setState({ statistics });
+  }
+
+  videoId(props) {
+    const { video } = props || this.props;
+    return video && video.videoId;
+  }
+
+  loadStatistics(videoId) {
+    const id = videoId || this.videoId();
+    if (!id) { return; }
+    getVideo(id, this.handleResponseReceived);
+    this.setState({ statistics: null });
   }
 
   render() {
-    if (!this.state.videoIsLoaded) {
-      const style = { flex: '40%', margin: '1em' };
-      return <div style={style}>No video selected.</div>;
+    if (!this.props.video) {
+      return <div style={noVideoStyle}>No video selected.</div>;
     }
 
     return (
       <VideoPlayer
         channelTitle={this.props.video.channelTitle}
-        videoId={this.props.video.videoId}
+        videoId={this.videoId()}
         statistics={this.state.statistics}
         title={this.props.video.title}
       />
     );
-  }
-
-  videoId(props) {
-    const video = (props || this.props).video;
-    return video && video.videoId;
-  }
-
-  loadVideo(videoId) {
-    const id = videoId || this.videoId();
-    if (!id) { return; }
-    getVideo(id, this.handleResponseReceived);
-    this.setState({ videoIsLoaded: false });
   }
 }

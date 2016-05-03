@@ -7,16 +7,32 @@ const style = {
   channel: { fontWeight: 'normal', margin: '0 0 .5em 0' }
 };
 
+const NO_STATISTICS = <div>Loading statistics...</div>;
 
-export default function VideoPlayer({
-  channelTitle,
-  statistics: {
+function renderStatistics(statistics) {
+  if (!statistics) { return NO_STATISTICS; }
+
+  const {
     commentCount,
     dislikeCount,
     favoriteCount,
     likeCount,
     viewCount,
-  },
+  } = statistics;
+
+  return (
+    <dl>
+      <dt>Views</dt> <dd>{viewCount}</dd>
+      <dt>Likes / Dislikes</dt> <dd>{likeCount} / {dislikeCount}</dd>
+      <dt>Favorites</dt> <dd>{favoriteCount}</dd>
+      <dt>Comments</dt> <dd>{commentCount}</dd>
+    </dl>
+  );
+}
+
+export default function VideoPlayer({
+  channelTitle,
+  statistics,
   title,
   videoId,
 }) {
@@ -30,12 +46,7 @@ export default function VideoPlayer({
           playbackState="unstarted"
         />
       </div>
-      <dl>
-        <dt>Views</dt> <dd>{viewCount}</dd>
-        <dt>Likes / Dislikes</dt> <dd>{likeCount} / {dislikeCount}</dd>
-        <dt>Favorites</dt> <dd>{favoriteCount}</dd>
-        <dt>Comments</dt> <dd>{commentCount}</dd>
-      </dl>
+      {renderStatistics(statistics)}
     </div>
   );
 }
