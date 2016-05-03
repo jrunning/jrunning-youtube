@@ -1,11 +1,15 @@
 import React, { PropTypes } from 'react';
+import YoutubePlayer from 'react-youtube-player';
 
 const style = {
-  flex: 1,
+  main: { flex: '40%', margin: '1em' },
+  title: { margin: '0 0 .5em 0' },
+  channel: { fontWeight: 'normal', margin: '0 0 .5em 0' }
 };
 
+
 export default function VideoPlayer({
-  embedHtml,
+  channelTitle,
   statistics: {
     commentCount,
     dislikeCount,
@@ -14,11 +18,18 @@ export default function VideoPlayer({
     viewCount,
   },
   title,
+  videoId,
 }) {
   return (
-    <div style={style}>
-      <h4>{title}</h4>
-      <div dangerouslySetInnerHTML={embedHtml} />
+    <div style={style.main}>
+      <h4 style={style.title}>{title}</h4>
+      <h5 style={style.channel}>by {channelTitle}</h5>
+      <div className="video-container">
+        <YoutubePlayer
+          videoId={videoId}
+          playbackState="unstarted"
+        />
+      </div>
       <dl>
         <dt>Views</dt> <dd>{viewCount}</dd>
         <dt>Likes / Dislikes</dt> <dd>{likeCount} / {dislikeCount}</dd>
@@ -30,9 +41,7 @@ export default function VideoPlayer({
 }
 
 VideoPlayer.propTypes = {
-  embedHtml: PropTypes.shape({
-    __html: PropTypes.string.isRequired,
-  }).isRequired,
+  channelTitle: PropTypes.string.isRequired,
   statistics: PropTypes.shape({
     commentCount: PropTypes.string.isRequired,
     dislikeCount: PropTypes.string.isRequired,
@@ -41,4 +50,5 @@ VideoPlayer.propTypes = {
     viewCount: PropTypes.string.isRequired,
   }),
   title: PropTypes.string.isRequired,
+  videoId: PropTypes.string.isRequired,
 };

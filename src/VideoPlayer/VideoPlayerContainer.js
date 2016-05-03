@@ -51,12 +51,14 @@ export default class VideoPlayerContainer extends Component {
 
   render() {
     if (!this.state.videoIsLoaded) {
-      return <div>No video selected.</div>;
+      const style = { flex: '40%', margin: '1em' };
+      return <div style={style}>No video selected.</div>;
     }
 
     return (
       <VideoPlayer
-        embedHtml={this.state.embedHtml}
+        channelTitle={this.props.video.channelTitle}
+        videoId={this.props.video.videoId}
         statistics={this.state.statistics}
         title={this.props.video.title}
       />
@@ -72,6 +74,6 @@ export default class VideoPlayerContainer extends Component {
     const id = videoId || this.videoId();
     if (!id) { return; }
     getVideo(id, this.handleResponseReceived);
-    this.setState({ embedHtml: null, videoIsLoaded: false });
+    this.setState({ videoIsLoaded: false });
   }
 }

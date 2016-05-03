@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 import VideoList from '../VideoList/VideoList';
 
-const style = { flex: 1 };
+const style = {
+  flex: '30%',
+  margin: '1em',
+};
 
 export default function Favorites({
   items,

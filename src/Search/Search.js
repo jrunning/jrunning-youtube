@@ -3,7 +3,8 @@ import SearchFormContainer from './SearchFormContainer';
 import VideoList from '../VideoList/VideoList';
 
 const style = {
-  flex: 1
+  flex: '30%',
+  margin: '1em',
 };
 
 export default function Search({

@@ -89,7 +89,7 @@ export function search(q, callback) {
 }
 
 // YouTube.getVideo
-const GET_VIDEO_DEFAULT_PARAMS = { part: 'player,statistics' };
+const GET_VIDEO_DEFAULT_PARAMS = { part: 'statistics' };
 
 function handleGetVideosResponse(callback) {
   return function({ result: { items: [item,] } }) {

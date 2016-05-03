@@ -1,10 +1,17 @@
 import React, { PropTypes } from 'react';
+import FavButton from '../shared/FavButton';
 
 const style = {
+  li: {
+    listStyleType: 'none',
+    position: 'relative'
+  },
+
   link: {
     display: 'flex',
     flexDirection: 'row',
-    margin: '-1em 0 .5em 0',
+    margin: 0,
+    marginBottom: '.5em',
     cursor: 'pointer',
   },
 
@@ -31,7 +38,7 @@ export default function VideoListItem({
   onToggleFavorite,
 }) {
   return (
-    <li>
+    <li style={style.li}>
       <a onClick={onSelect} style={style.link}>
         <img src={thumbnailUrl} style={style.thumbnail} />
         <div style={style.info}>
@@ -39,7 +46,7 @@ export default function VideoListItem({
           <h5 style={style.channel}>by {channelTitle}</h5>
         </div>
       </a>
-      <a onClick={onToggleFavorite} style={style.fav}>{isFavorite && 'un'}fav</a>
+      <FavButton onClick={onToggleFavorite} active={isFavorite} />
     </li>
   );
 }

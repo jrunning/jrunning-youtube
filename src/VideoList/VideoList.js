@@ -1,6 +1,8 @@
 import React, { PropTypes } from 'react';
 import VideoListItem from './VideoListItem'
 
+const style = { padding: 0 };
+
 export default function VideoList({
   items,
   favorites,
@@ -14,7 +16,7 @@ export default function VideoList({
   }
 
   return (
-    <ol>
+    <ol style={style}>
       {items.map((item, idx) => (
         <VideoListItem
           data={item}

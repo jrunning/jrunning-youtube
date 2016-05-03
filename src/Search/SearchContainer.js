@@ -28,9 +28,6 @@ export default class SearchContainer extends Component {
     apiLoaded(() => this.setState({ apiReady: true }));
   }
 
-  componentWillUnmount() {
-  }
-
   handleResultsReceived(results) {
     this.setState({ results });
   }
