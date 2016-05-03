@@ -1,6 +1,15 @@
 import React, { PropTypes } from 'react';
 import FavButton from '../shared/FavButton';
 
+const MATCH_DATE_STRING_EXPR = /^\w+ (\w+) 0?(\d+) (\d+)$/;
+
+function formatDate(date) {
+  return date.toDateString().replace(
+    MATCH_DATE_STRING_EXPR,
+    (_, mon, day, year) => `${mon}. ${day}, ${year}`
+  );
+}
+
 const style = {
   li: {
     listStyleType: 'none',
@@ -22,14 +31,15 @@ const style = {
   },
 
   info: { flex: 1, padding: '.5em' },
-  title: { margin: '0 0 .5em 0' },
-  channel: { fontWeight: 'normal', margin: '0 0 .5em 0' },
+  title: { margin: '0 0 .33em 0' },
+  meta: { fontWeight: 'normal', margin: '0 0 .33em 0', fontSize: 13 },
   fav: { cursor: 'pointer' },
 }
 
 export default function VideoListItem({
   data: {
     channelTitle,
+    publishedAt,
     thumbnails: { default: { url: thumbnailUrl } },
     title
   },
@@ -43,7 +53,8 @@ export default function VideoListItem({
         <img src={thumbnailUrl} style={style.thumbnail} />
         <div style={style.info}>
           <h4 style={style.title}>{title}</h4>
-          <h5 style={style.channel}>by {channelTitle}</h5>
+          <h5 style={style.meta}>by {channelTitle}</h5>
+          <span style={style.meta}>{formatDate(publishedAt)}</span>
         </div>
       </a>
       <FavButton onClick={onToggleFavorite} active={isFavorite} />
@@ -60,6 +71,7 @@ VideoListItem.propTypes = {
       })
     }),
     title: PropTypes.string.isRequired,
+    publishedAt: PropTypes.instanceOf(Date),
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   onSelect: PropTypes.func.isRequired,
