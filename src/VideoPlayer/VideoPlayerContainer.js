@@ -6,6 +6,8 @@ const noVideoStyle = { flex: '40%', margin: '1em' };
 
 export default class VideoPlayerContainer extends Component {
   static propTypes = {
+    isFavorite: PropTypes.bool,
+    onToggleFavorite: PropTypes.func.isRequired,
     video: PropTypes.shape({
       videoId: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
@@ -32,10 +34,11 @@ export default class VideoPlayerContainer extends Component {
     this.loadStatistics(videoId);
   }
 
-  shouldComponentUpdate(nextProps, { statistics }) {
-    return (
-      this.videoId(nextProps) !== this.videoId() ||
-        statistics !== this.state.statistics
+  shouldComponentUpdate({ isFavorite, ...nextProps }, { statistics }) {
+    return !(
+      this.videoId(nextProps) === this.videoId() &&
+        isFavorite === this.props.isFavorite &&
+        statistics === this.state.statistics
     );
   }
 
@@ -60,9 +63,14 @@ export default class VideoPlayerContainer extends Component {
       return <div style={noVideoStyle}>No video selected.</div>;
     }
 
+    const onToggleFavorite =
+      () => this.props.onToggleFavorite(this.props.video);
+
     return (
       <VideoPlayer
         channelTitle={this.props.video.channelTitle}
+        isFavorite={this.props.isFavorite}
+        onToggleFavorite={onToggleFavorite}
         videoId={this.videoId()}
         statistics={this.state.statistics}
         title={this.props.video.title}

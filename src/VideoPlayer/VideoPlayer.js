@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import YoutubePlayer from 'react-youtube-player';
 
+import FavButton from '../shared/FavButton';
+
 const style = {
-  main: { flex: '40%', margin: '1em' },
+  main: { flex: '40%', position: 'relative', margin: '1em' },
   title: { margin: '0 0 .5em 0' },
   channel: { fontWeight: 'normal', margin: '0 0 .5em 0' }
 };
@@ -32,12 +34,15 @@ function renderStatistics(statistics) {
 
 export default function VideoPlayer({
   channelTitle,
+  isFavorite,
+  onToggleFavorite,
   statistics,
   title,
   videoId,
 }) {
   return (
     <div style={style.main}>
+      <FavButton active={isFavorite} onClick={onToggleFavorite} />
       <h4 style={style.title}>{title}</h4>
       <h5 style={style.channel}>by {channelTitle}</h5>
       <div className="video-container">
@@ -53,6 +58,8 @@ export default function VideoPlayer({
 
 VideoPlayer.propTypes = {
   channelTitle: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool,
+  onToggleFavorite: PropTypes.func.isRequired,
   statistics: PropTypes.shape({
     commentCount: PropTypes.string.isRequired,
     dislikeCount: PropTypes.string.isRequired,

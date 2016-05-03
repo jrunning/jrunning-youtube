@@ -1,17 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Search from './Search';
 import { apiLoaded, search } from '../lib/YouTube';
-import {
-  addFav,
-  isFav,
-  listFavs,
-  removeFav,
-} from '../lib/Favs';
 
 export default class SearchContainer extends Component {
   static propTypes = {
     favorites: PropTypes.objectOf(PropTypes.oneOf([true])),
-    onFavoritesChanged: PropTypes.func.isRequired,
+    onToggleFavorite: PropTypes.func.isRequired,
     onSelect: PropTypes.func.isRequired,
   }
 
@@ -38,15 +32,7 @@ export default class SearchContainer extends Component {
   }
 
   handleToggleFavorite(itemIdx) {
-    const item = this.getItem(itemIdx);
-
-    if (isFav(item.videoId)) {
-      removeFav(item.videoId);
-    } else {
-      addFav(item);
-    }
-
-    this.props.onFavoritesChanged();
+    this.props.onToggleFavorite(this.getItem(itemIdx));
   }
 
   handleVideoSelected(searchResultIdx) {

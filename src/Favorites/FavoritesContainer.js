@@ -1,17 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import Favorites from './Favorites';
-import {
-  addFav,
-  getAllFavs,
-  isFav,
-  removeFav,
-} from '../lib/Favs';
+import { getAllFavs } from '../lib/Favs';
 
 export default class FavoritesContainer extends Component {
   static propTypes = {
     favorites: PropTypes.objectOf(PropTypes.oneOf([true])).isRequired,
     onSelect: PropTypes.func.isRequired,
-    onFavoritesChanged: PropTypes.func.isRequired,
+    onToggleFavorite: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -32,10 +27,8 @@ export default class FavoritesContainer extends Component {
   }
 
   handleRemoveFavorite(itemIdx) {
-    const { videoId } = this.getItem(itemIdx);
-    removeFav(videoId);
+    this.props.onToggleFavorite(this.getItem(itemIdx));
     this.loadFavs();
-    this.props.onFavoritesChanged();
   }
 
   handleVideoSelected(itemIdx) {

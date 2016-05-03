@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { listFavs } from './lib/Favs';
+import { addFav, isFav, listFavs, removeFav } from './lib/Favs';
 
 import App from './App';
 
@@ -8,16 +8,23 @@ export default class AppContainer extends Component {
     super(props);
     this.state = { selectedVideo: null, favorites: {} };
     this.handleVideoSelected = this.handleVideoSelected.bind(this);
-    this.handleFavoritesChanged = this.handleFavoritesChanged.bind(this);
+    this.handleToggleFavorite = this.handleToggleFavorite.bind(this);
   }
 
   componentDidMount() {
     this.loadFavs();
   }
 
-  handleFavoritesChanged() {
+  handleToggleFavorite(item) {
+    if (isFav(item.videoId)) {
+      removeFav(item.videoId);
+    } else {
+      addFav(item);
+    }
+
     this.loadFavs();
   }
+
 
   handleVideoSelected(selectedVideo) {
     this.setState({ selectedVideo });
@@ -36,7 +43,7 @@ export default class AppContainer extends Component {
       <App
         {...this.state}
         onSelectVideo={this.handleVideoSelected}
-        onFavoritesChanged={this.handleFavoritesChanged}
+        onToggleFavorite={this.handleToggleFavorite}
       />
     );
   }

@@ -10,30 +10,37 @@ const style = {
 
 export default function App({
   favorites,
-  onFavoritesChanged,
+  onToggleFavorite,
   onSelectVideo,
   selectedVideo,
 }) {
+  const selectedVideoIsFavorite =
+    selectedVideo && favorites[selectedVideo.videoId];
+
   return (
     <div style={style}>
-      <FavoritesContainer
-        favorites={favorites}
-        onFavoritesChanged={onFavoritesChanged}
-        onSelect={onSelectVideo}
-      />
       <SearchContainer
         favorites={favorites}
-        onFavoritesChanged={onFavoritesChanged}
+        onToggleFavorite={onToggleFavorite}
         onSelect={onSelectVideo}
       />
-      <VideoPlayerContainer video={selectedVideo} />
+      <FavoritesContainer
+        favorites={favorites}
+        onToggleFavorite={onToggleFavorite}
+        onSelect={onSelectVideo}
+      />
+      <VideoPlayerContainer
+        isFavorite={selectedVideoIsFavorite}
+        onToggleFavorite={onToggleFavorite}
+        video={selectedVideo}
+      />
     </div>
   );
 }
 
 App.propTypes = {
   favorites: PropTypes.objectOf(PropTypes.oneOf([true])),
-  onFavoritesChanged: PropTypes.func.isRequired,
+  onToggleFavorite: PropTypes.func.isRequired,
   onSelectVideo: PropTypes.func.isRequired,
   selectedVideo: PropTypes.object,
 };
