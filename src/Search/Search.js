@@ -3,8 +3,8 @@ import SearchFormContainer from './SearchFormContainer';
 import VideoList from '../VideoList/VideoList';
 
 const style = {
-  flex: '30%',
-  margin: '1em',
+  main: { flex: '30%', margin: '1em' },
+  heading: { marginTop: 0 },
 };
 
 export default function Search({
@@ -16,8 +16,8 @@ export default function Search({
   results
 }) {
   return (
-    <div style={style}>
-      <h2>Search</h2>
+    <div style={style.main}>
+      <h2 style={style.heading}>Search</h2>
       <SearchFormContainer
         apiReady={apiReady}
         initialOrder="relevance"

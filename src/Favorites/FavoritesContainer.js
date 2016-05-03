@@ -46,7 +46,7 @@ export default class FavoritesContainer extends Component {
   }
 
   loadFavs() {
-    this.setState({ items: getAllFavs() });
+    this.setState({ items: getAllFavs().reverse() });
   }
 
   render() {

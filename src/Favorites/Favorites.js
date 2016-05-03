@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import VideoList from '../VideoList/VideoList';
 
 const style = {
-  flex: '30%',
-  margin: '1em',
+  main: { flex: '30%', margin: '1em' },
+  heading: { marginTop: 0 },
 };
 
 export default function Favorites({
@@ -13,8 +13,8 @@ export default function Favorites({
   onSelect,
 }) {
   return (
-    <div style={style}>
-      <h2>Favorites</h2>
+    <div style={style.main}>
+      <h2 style={style.heading}>Favorites</h2>
       <VideoList
         items={items}
         favorites={favorites}
