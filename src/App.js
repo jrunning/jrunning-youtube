@@ -12,7 +12,7 @@ export default function App({
   selectedVideo,
 }) {
   const selectedVideoIsFavorite =
-    selectedVideo && favorites[selectedVideo.videoId];
+    !!(selectedVideo && favorites[selectedVideo.videoId]);
 
   return (
     <div style={style}>
