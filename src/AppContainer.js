@@ -30,6 +30,14 @@ export default class AppContainer extends Component {
     this.setState({ selectedVideo });
   }
 
+  // Retrieve an array of favorite videoIds from storage and set
+  // `this.state.favorites` to an object of the form:
+  //
+  //     { "xo8TiSo4iTc": true,
+  //       "SBjQ9tuuTJQ": true,
+  //       ...
+  //     }
+  //
   loadFavs() {
     const favorites = listFavs().reduce(
       (favs, id) => ({ ...favs, [id]: true }),

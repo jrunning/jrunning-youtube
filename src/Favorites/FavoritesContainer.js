@@ -26,6 +26,8 @@ export default class FavoritesContainer extends Component {
     }
   }
 
+  // Retrieve a video object from `this.state.items` by its index in the
+  // favorites list
   getItem(itemIdx) {
     const selectedItem = this.state.items[itemIdx];
 

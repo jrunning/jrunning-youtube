@@ -22,6 +22,8 @@ export default class SearchContainer extends Component {
     apiLoaded(() => this.setState({ apiReady: true }));
   }
 
+  // Retrieve a video object from `this.state.items` by its index in the
+  // results list
   getItem(itemIdx) {
     const selectedItem = this.state.results[itemIdx];
 

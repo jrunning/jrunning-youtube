@@ -2,6 +2,11 @@
  * -------
  * A wrapper around the Google APIs JavaScript client. Provides
  * simplified access to `gapi.client.youtube.search.list`, etc.
+ *
+ * Exports:
+ * - apiLoaded(callback)
+ * - search(keywords, params, callback)
+ * - getVideo(videoId)
  */
 import { youtube as config } from '../../config';
 
@@ -40,6 +45,7 @@ export function apiLoaded(callback) {
   });
 }
 
+// Raise an error if the API hasn't finished loading.
 function ensureApiReady() {
   if (apiReady) { return; }
   throw new Error('YouTube API not yet loaded!');
@@ -82,8 +88,15 @@ function handleError({ result }) {
   throw new Error(`YouTube API error: ${result.error.message}`);
 }
 
-// Searches YouTube for the given query and invokes the callback with
-// the results (at most SEARCH_MAX_RESULTS).
+// Searches YouTube for the given query and params and invokes the
+// callback with the results (at most SEARCH_MAX_RESULTS). See
+// `transformSearchResultItem` for result item properties.
+//
+// Arguments:
+// - keywords (String)
+// - params (Object, optional)
+// - callback (Function)
+//
 export function search(q, ...rest) {
   let params, callback;
 
@@ -116,6 +129,11 @@ function handleGetVideosResponse(callback) {
 
 // Retrieves the video details for the given video id and passes it to
 // the given callback.
+//
+// Arguments:
+// - videoId (String)
+// - callback (Function)
+//
 export function getVideo(id, callback) {
   ensureApiReady();
   youtube.videos.list({ ...GET_VIDEO_DEFAULT_PARAMS, id })

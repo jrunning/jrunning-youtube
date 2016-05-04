@@ -3,10 +3,7 @@ import SearchContainer from './Search/SearchContainer';
 import VideoPlayerContainer from './VideoPlayer/VideoPlayerContainer';
 import FavoritesContainer from './Favorites/FavoritesContainer';
 
-const style = {
-  fontFamily: 'Helvetica Neue, Helvetica, sans-serif',
-  display: 'flex',
-};
+const style = { display: 'flex' };
 
 export default function App({
   favorites,

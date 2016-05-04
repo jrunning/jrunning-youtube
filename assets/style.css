@@ -1,3 +1,7 @@
+body {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+}
+
 .video-container {
   position: relative;
   padding-bottom: 56.45%;

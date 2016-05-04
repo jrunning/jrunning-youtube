@@ -47,6 +47,8 @@ export default class VideoPlayerContainer extends Component {
     this.setState({ statistics });
   }
 
+  // If an object is given, return its `videoId` property; otherwise
+  // return `this.props.videoId`.
   videoId(props) {
     const { video } = props || this.props;
     return video && video.videoId;
