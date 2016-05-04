@@ -2,8 +2,8 @@ jrunning-youtube
 ================
 A simple YouTube API client.
 
-### Usage
-
+Usage
+-----
 This application requires a Google API key with the Google Maps
 JavaScript API and Google Maps JavaScript API services enabled. Read
 the [API Client Library for JavaScript Getting Started guide] for
@@ -18,23 +18,24 @@ open http://localhost:3000
 
 [API Client Library for JavaScript Getting Started guide]: https://developers.google.com/api-client-library/javascript/start/start-js
 
-### Tests
-
-Tests are incomplete. ☹️
+Tests
+-----
+To run the tests:
 
 ```sh
 npm test
 ```
 
-Notes
-=====
+Due to time constraints there are fewer tests than there ought to be.
 
+Notes
+-----
 Unapologetically ES2015+. Thanks, [Babel]!
 
 [Babel]: https://babeljs.io/
 
-Search
-------
+### Search
+
 Search is powered by `src/lib/YouTube.js`, a wrapper around
 `window.gapi.client.youtube`. Since the Google JavaScript API Client
 doesn't play well with any module loader, it's loaded in a `<script>`
@@ -47,8 +48,8 @@ Places API.
 
 [React Geosuggest]: https://github.com/ubilabs/react-geosuggest
 
-Favorites
----------
+### Favorites
+
 Favorites are stored locally using localStorage and persist between
 sessions.
 
@@ -58,16 +59,16 @@ stored with the key `favorites:index`.
 
 Check out `src/lib/Favs.js` to see how the sausage is made.
 
-Video player
-------------
+### Video player
+
 The video player uses [react-youtube-player] because it's more
 flexible than the `embedHtml` provided by the search API.
 
 [react-youtube-player]: https://github.com/gajus/react-youtube-player/
 
-Miscellaneous
--------------
-### Smart components and dumb components
+### Miscellaneous
+
+#### Smart components and dumb components
 All data and state are stored in "smart" container components, e.g.
 SearchFormContainer. All rendering is done by "dumb" stateless
 functional components, e.g. SearchForm. This requires passing both event
