@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import VideoListItem from './VideoListItem'
+import VideoListItem from './VideoListItem';
 
 const style = { padding: 0 };
 
@@ -35,14 +35,13 @@ VideoList.propTypes = {
     PropTypes.shape({
       thumbnails: PropTypes.shape({
         default: PropTypes.shape({
-          url: PropTypes.string.isRequired
-        })
+          url: PropTypes.string.isRequired,
+        }),
       }),
-      title: PropTypes.string.isRequired
+      title: PropTypes.string.isRequired,
     }).isRequired
   ),
   favorites: PropTypes.objectOf(PropTypes.oneOf([true])).isRequired,
-  onSelect: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onToggleFavorite: PropTypes.func.isRequired,
 };

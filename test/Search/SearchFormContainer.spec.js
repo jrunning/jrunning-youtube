@@ -12,7 +12,7 @@ describe('<SearchFormContainer/>', () => {
   });
 
   it('should render the SearchForm component', () => {
-    const wrapper = shallow(<SearchFormContainer {...props}/>);
+    const wrapper = shallow(<SearchFormContainer {...props} />);
     expect(wrapper.find(SearchForm)).to.have.length(1);
   });
 
@@ -38,8 +38,9 @@ describe('<SearchFormContainer/>', () => {
   it('should call `props.onSearch` with the search keywords when the ' +
      'SearchForm component\'s `props.onSearch` is called', () => {
     const keywords = 'foo bar';
-    const props = { ...props, onSearch: sinon.spy() };
-    const wrapper = shallow(<SearchFormContainer {...props}/>);
+    props = { ...props, onSearch: sinon.spy() };
+
+    const wrapper = shallow(<SearchFormContainer {...props} />);
     const searchComponent = wrapper.find(SearchForm);
 
     wrapper.setState({ value: keywords });
@@ -53,13 +54,13 @@ describe('<SearchFormContainer/>', () => {
     });
 
     it('should set `state.value` from `initialValue`', () => {
-      const wrapper = shallow(<SearchFormContainer {...props}/>);
+      const wrapper = shallow(<SearchFormContainer {...props} />);
       expect(wrapper.state('value')).to.equal(props.initialValue);
     });
 
     it('should pass `initialValue` as the SearchForm component\'s ' +
        '`value` prop', () => {
-      const wrapper = shallow(<SearchFormContainer {...props}/>);
+      const wrapper = shallow(<SearchFormContainer {...props} />);
       expect(wrapper.find(SearchForm).prop('value')).to.equal(props.initialValue);
     });
   });

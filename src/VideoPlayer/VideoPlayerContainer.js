@@ -9,9 +9,10 @@ export default class VideoPlayerContainer extends Component {
     isFavorite: PropTypes.bool,
     onToggleFavorite: PropTypes.func.isRequired,
     video: PropTypes.shape({
-      videoId: PropTypes.string.isRequired,
+      channelTitle: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-    })
+      videoId: PropTypes.string.isRequired,
+    }),
   }
 
   constructor(props) {
@@ -22,7 +23,7 @@ export default class VideoPlayerContainer extends Component {
 
   componentDidMount() {
     apiLoaded(() => {
-      this.setState({ apiReady: true })
+      this.setState({ apiReady: true });
       this.loadStatistics();
     });
   }

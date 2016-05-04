@@ -72,7 +72,7 @@ function transformSearchResultItem({ id: { kind, videoId }, snippet }) {
 }
 
 function handleSearchResponse(callback) {
-  return function ({ result: { items } }) {
+  return function _handleSearchResponse({ result: { items } }) {
     callback(items.map(transformSearchResultItem));
   };
 }
@@ -109,13 +109,13 @@ export function search(q, ...rest) {
 const GET_VIDEO_DEFAULT_PARAMS = { part: 'statistics' };
 
 function handleGetVideosResponse(callback) {
-  return function({ result: { items: [item,] } }) {
-    callback(item);
-  }
+  return function _handleGetVideosResponse({ result: { items } }) {
+    callback(items[0]);
+  };
 }
 
-// Retrieves the video player embed code for the given video id and
-// passes it to the given callback.
+// Retrieves the video details for the given video id and passes it to
+// the given callback.
 export function getVideo(id, callback) {
   ensureApiReady();
   youtube.videos.list({ ...GET_VIDEO_DEFAULT_PARAMS, id })

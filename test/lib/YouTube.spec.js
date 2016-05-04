@@ -5,6 +5,7 @@ import searchResponse, { rawItems as searchResponseItems } from '../data/search'
 import getVideoResponse, { item as getVideoResponseItem } from '../data/video';
 
 describe('YouTube', () => {
+  /* eslint global-require: "off" */
   let YouTube;
 
   beforeEach(() => {
@@ -22,7 +23,7 @@ describe('YouTube', () => {
       it('does not invoke the given callback immediately', () => {
         const callback = sinon.spy();
         YouTube.apiLoaded(callback);
-        expect(callback).not.to.have.been.called;
+        expect(callback).to.have.callCount(0);
       });
     });
 
@@ -81,6 +82,9 @@ describe('YouTube', () => {
   });
 
   describe('.search', () => {
+    let searchParams, expectedParams;
+    const q = 'foo bar baz 1';
+
     function withSearchParams(_searchParams) {
       return {
         itCallsVideosListWith(_expectedParams) {
@@ -90,7 +94,8 @@ describe('YouTube', () => {
               expectedParams = { ...expectedParams, ..._expectedParams };
             });
 
-            it(`calls \`gapi.client.youtube.videos.list\` with ${inspect(_expectedParams)}`, (done) => {
+            it('calls `gapi.client.youtube.videos.list` ' +
+               `with ${inspect(_expectedParams)}`, (done) => {
               YouTube.search(q, searchParams, () => {
                 expect(window.gapi.client.youtube.search.list)
                   .to.have.been.calledWith(sinon.match(expectedParams));
@@ -98,24 +103,19 @@ describe('YouTube', () => {
               });
             });
           });
-        }
+        },
       };
     }
-
-    let searchParams;
-    let expectedParams;
-    let q = 'foo bar baz 1';
 
     beforeEach((done) => {
       searchParams = {};
       expectedParams = { q };
       gapi.setResponse(searchResponse);
-      YouTube.apiLoaded(() => { done() });
+      YouTube.apiLoaded(() => done());
     });
 
     it('calls `gapi.client.youtube.search.list` with the ' +
        'given query`', (done) => {
-
       YouTube.search(q, () => {
         expect(window.gapi.client.youtube.search.list)
           .to.have.been.calledWith(sinon.match(expectedParams));
@@ -145,7 +145,7 @@ describe('YouTube', () => {
     withSearchParams({ location: '37.42307,-122.08427' })
       .itCallsVideosListWith({
         location: '37.42307,-122.08427',
-        locationRadius: '5mi'
+        locationRadius: '5mi',
       });
   });
 
@@ -155,16 +155,14 @@ describe('YouTube', () => {
     beforeEach((done) => {
       expectedParams = {
         id: 'foo-bar-baz',
-        part: 'statistics'
+        part: 'statistics',
       };
       gapi.setResponse(getVideoResponse);
-      YouTube.apiLoaded(() => { done() });
+      YouTube.apiLoaded(() => done());
     });
 
     it('calls `gapi.client.youtube.videos.list` with the ' +
        'given video id`', (done) => {
-      const id = getVideoResponseItem.id;
-
       YouTube.getVideo('foo-bar-baz', () => {
         expect(window.gapi.client.youtube.videos.list)
           .to.have.been.calledWith(sinon.match(expectedParams));

@@ -25,7 +25,7 @@ export default class SearchFormContainer extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleChangeLocation(location={}) {
+  handleChangeLocation(location = {}) {
     this.setState({ location });
   }
 

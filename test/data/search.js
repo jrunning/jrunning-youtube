@@ -1,3 +1,4 @@
+/* eslint quotes: "off", comma-dangle: "off" */
 export const rawItems = [
   { kind: "youtube#searchResult",
     etag: "\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/OiiKsk3ygpNpEL3OVLYLnt5W4ig\"",

@@ -5,5 +5,14 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true
     }
+  },
+  "rules": {
+    "array-bracket-spacing": ["error", "always", { "singleValue": false } ],
+    "no-cond-assign": ["error", "except-parens"],
+    "one-var": [ "error", {
+      "initialized": "never",
+      "uninitialized": "always"
+    } ],
+    "one-var-declaration-per-line": ["error", "initializations"]
   }
 }

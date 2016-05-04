@@ -26,15 +26,6 @@ export default class FavoritesContainer extends Component {
     }
   }
 
-  handleRemoveFavorite(itemIdx) {
-    this.props.onToggleFavorite(this.getItem(itemIdx));
-    this.loadFavs();
-  }
-
-  handleVideoSelected(itemIdx) {
-    this.props.onSelect(this.getItem(itemIdx));
-  }
-
   getItem(itemIdx) {
     const selectedItem = this.state.items[itemIdx];
 
@@ -43,6 +34,15 @@ export default class FavoritesContainer extends Component {
     }
 
     return selectedItem;
+  }
+
+  handleRemoveFavorite(itemIdx) {
+    this.props.onToggleFavorite(this.getItem(itemIdx));
+    this.loadFavs();
+  }
+
+  handleVideoSelected(itemIdx) {
+    this.props.onSelect(this.getItem(itemIdx));
   }
 
   loadFavs() {

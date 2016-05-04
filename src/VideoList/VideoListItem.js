@@ -13,7 +13,7 @@ function formatDate(date) {
 const style = {
   li: {
     listStyleType: 'none',
-    position: 'relative'
+    position: 'relative',
   },
 
   link: {
@@ -34,14 +34,14 @@ const style = {
   title: { margin: '0 0 .33em 0' },
   meta: { fontWeight: 'normal', margin: '0 0 .33em 0', fontSize: 13 },
   fav: { cursor: 'pointer' },
-}
+};
 
 export default function VideoListItem({
   data: {
     channelTitle,
     publishedAt,
     thumbnails: { default: { url: thumbnailUrl } },
-    title
+    title,
   },
   isFavorite,
   onSelect,
@@ -50,7 +50,7 @@ export default function VideoListItem({
   return (
     <li style={style.li}>
       <a onClick={onSelect} style={style.link}>
-        <img src={thumbnailUrl} style={style.thumbnail} />
+        <img alt="Thumbnail" src={thumbnailUrl} style={style.thumbnail} />
         <div style={style.info}>
           <h4 style={style.title}>{title}</h4>
           <h5 style={style.meta}>by {channelTitle}</h5>
@@ -68,7 +68,7 @@ VideoListItem.propTypes = {
     thumbnails: PropTypes.shape({
       default: PropTypes.shape({
         url: PropTypes.string.isRequired,
-      })
+      }),
     }),
     title: PropTypes.string.isRequired,
     publishedAt: PropTypes.instanceOf(Date),

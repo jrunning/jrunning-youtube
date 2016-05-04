@@ -13,7 +13,7 @@ export default function Search({
   onSelect,
   onSearch,
   onToggleFavorite,
-  results
+  results,
 }) {
   return (
     <div style={style.main}>

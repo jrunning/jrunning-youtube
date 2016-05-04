@@ -15,15 +15,15 @@ export default function OrderInput({ onChange, order }) {
   return (
     <div style={style.main}>{
       Object.keys(ORDERS).map((key) => {
-        const props = {
+        const radioProps = {
           checked: key === order,
           id: `search-order-${key}`,
-          onChange: () => onChange(key)
+          onChange: () => onChange(key),
         };
 
         return (
-          <label key={key} for={props.id} style={style.radio}>
-            <input type="radio" {...props} /> {ORDERS[key]}
+          <label key={key} htmlFor={radioProps.id} style={style.radio}>
+            <input type="radio" {...radioProps} /> {ORDERS[key]}
           </label>
         );
       })

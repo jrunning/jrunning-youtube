@@ -6,7 +6,7 @@ import FavButton from '../shared/FavButton';
 const style = {
   main: { flex: '40%', position: 'relative', margin: '1em' },
   title: { margin: '0 0 .5em 0' },
-  channel: { fontWeight: 'normal', margin: '0 0 .5em 0' }
+  channel: { fontWeight: 'normal', margin: '0 0 .5em 0' },
 };
 
 const NO_STATISTICS = <div>Loading statistics...</div>;

@@ -67,10 +67,7 @@ export function addFav(item) {
 
 export function getFav(id) {
   const itemJSON = window.localStorage.getItem(idToKey(id));
-
-  if (itemJSON) {
-    return itemFromString(itemJSON);
-  }
+  return itemJSON && itemFromString(itemJSON);
 }
 
 export function getAllFavs() {

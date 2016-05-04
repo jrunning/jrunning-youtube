@@ -85,7 +85,8 @@ describe('Favs', () => {
 
       it('returns the given item', () => {
         const fav = getFav(mockItem.videoId);
-        expect(window.localStorage.getItem).to.have.been.calledWith(`favorites:${mockItem.videoId}`);
+        expect(window.localStorage.getItem)
+          .to.have.been.calledWith(`favorites:${mockItem.videoId}`);
         expect(fav).to.eql(mockItem);
       });
     });
@@ -162,7 +163,7 @@ describe('Favs', () => {
       expect(listFavs()).to.eql([ existingItem.videoId, mockItem.videoId ]);
       removeFav(mockItem.videoId);
 
-      expect(listFavs()).to.eql([ existingItem.videoId ]);
+      expect(listFavs()).to.eql([existingItem.videoId]);
     });
   });
 });

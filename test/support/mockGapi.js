@@ -3,18 +3,17 @@
  * A limited mock Google APIs JavaScript client providing spies for API
  * request methods.
  */
-let gapi;
-let response;
+let gapi, response;
 
 function mockReturnsPromise() {
   const then = (callback) => setTimeout(() => callback(response), 0);
-  return sinon.spy((params) => ({ then }));
+  return sinon.spy(() => ({ then }));
 }
 
 function mockYoutube() {
   return {
     search: { list: mockReturnsPromise() },
-    videos: { list: mockReturnsPromise() }
+    videos: { list: mockReturnsPromise() },
   };
 }
 
@@ -23,7 +22,7 @@ function mockLoad() {
     setTimeout(callback, 0);
   };
 
-  return sinon.spy((callback) => {
+  return sinon.spy(() => {
     gapi.client.youtube = mockYoutube();
     return { then };
   });
@@ -36,11 +35,11 @@ export function reset() {
     client: {
       load: mockLoad(),
       setApiKey: sinon.spy(),
-    }
+    },
   };
 
   response = undefined;
-};
+}
 reset();
 
 export function init() {

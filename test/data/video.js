@@ -1,3 +1,4 @@
+/* eslint comma-dangle: "off", max-len: "off" */
 export const statistics = {
   viewCount: '39770',
   likeCount: '167',
@@ -18,9 +19,9 @@ const response = {
     kind: 'youtube#videoListResponse',
     etag: '"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/Ilts62GmJPFQg68grRyUfTvdx2U"',
     pageInfo: { totalResults: 1, resultsPerPage: 1 },
-    items: [ item ]
+    items: [item]
   },
-  body: '{\n "kind": "youtube#videoListResponse",\n "etag": "\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/Ilts62GmJPFQg68grRyUfTvdx2U\"",\n "pageInfo": {\n  "totalResults": 1,\n  "resultsPerPage": 1\n },\n "items": [\n  {\n   "kind": "youtube#video",\n   "etag": "\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/OQu6Yo-zGc-wtL57iMUYhyvTQ0c\"",\n   "id": "9NoBh0hXaYg",\n   "statistics": {\n    "viewCount": "54138001",\n    "likeCount":   "332920",\n    "dislikeCount": "4685",\n    "favoriteCount": "0",\n    "commentCount": "35314"\n}\n  }\n ]\n}\n',
+  body: '{\n "kind": "youtube#videoListResponse",\n "etag": "\\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/Ilts62GmJPFQg68grRyUfTvdx2U\\"",\n "pageInfo": {\n  "totalResults": 1,\n  "resultsPerPage": 1\n },\n "items": [\n  {\n   "kind": "youtube#video",\n   "etag": "\\"kiOs9cZLH2FUp6r6KJ8eyq_LIOk/OQu6Yo-zGc-wtL57iMUYhyvTQ0c\\"",\n   "id": "9NoBh0hXaYg",\n   "statistics": {\n    "viewCount": "54138001",\n    "likeCount":   "332920",\n    "dislikeCount": "4685",\n    "favoriteCount": "0",\n    "commentCount": "35314"\n}\n  }\n ]\n}\n',
   headers: {
     date: 'Sun, 01 May 2016 20:45:26 GMT',
     'content-encoding': 'gzip',

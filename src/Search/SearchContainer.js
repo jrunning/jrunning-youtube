@@ -22,11 +22,21 @@ export default class SearchContainer extends Component {
     apiLoaded(() => this.setState({ apiReady: true }));
   }
 
+  getItem(itemIdx) {
+    const selectedItem = this.state.results[itemIdx];
+
+    if (!selectedItem) {
+      throw new Error('Invalid selected video index!');
+    }
+
+    return selectedItem;
+  }
+
   handleResultsReceived(results) {
     this.setState({ results });
   }
 
-  handleSearch(keywords, params={}) {
+  handleSearch(keywords, params = {}) {
     if (!this.state.apiReady) { return; }
     search(keywords, params, this.handleResultsReceived);
   }
@@ -37,16 +47,6 @@ export default class SearchContainer extends Component {
 
   handleVideoSelected(searchResultIdx) {
     this.props.onSelect(this.getItem(searchResultIdx));
-  }
-
-  getItem(itemIdx) {
-    const selectedItem = this.state.results[itemIdx];
-
-    if (!selectedItem) {
-      throw new Error('Invalid selected video index!');
-    }
-
-    return selectedItem;
   }
 
   render() {

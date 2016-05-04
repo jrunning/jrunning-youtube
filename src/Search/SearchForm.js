@@ -4,7 +4,7 @@ import LocationInput from './LocationInput';
 
 const style = {
   main: { marginBottom: '1em' },
-  inputGroup: { display: 'block', fontSize: 16, marginBottom: '.5em' }
+  inputGroup: { display: 'block', fontSize: 16, marginBottom: '.5em' },
 };
 
 export default function SearchForm({

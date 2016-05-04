@@ -5,8 +5,7 @@ import { transformedItem as item } from '../data/search';
 import VideoListItem from '../../src/VideoList/VideoListItem';
 
 describe('<VideoListItem/>', () => {
-  let onSelect;
-  let wrapper;
+  let onSelect, wrapper;
 
   beforeEach(() => {
     onSelect = sinon.spy();

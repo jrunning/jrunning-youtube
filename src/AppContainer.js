@@ -32,7 +32,7 @@ export default class AppContainer extends Component {
 
   loadFavs() {
     const favorites = listFavs().reduce(
-      (favs, id) => { favs[id] = true; return favs; },
+      (favs, id) => ({ ...favs, [id]: true }),
       {}
     );
     this.setState({ favorites });
